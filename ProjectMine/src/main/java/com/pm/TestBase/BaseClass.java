@@ -12,24 +12,25 @@ public class BaseClass {
 
 	public static void setDriver(String browserName) {
 
-		if (browserName.equalsIgnoreCase("chrome")) {
+		switch (browserName.toLowerCase()) {
+		case "chrome":
 			System.setProperty(PropertyReader.getProperty("chromeKey"), PropertyReader.getProperty("chromeValue"));
 			driver.set(new ChromeDriver());
-		}
+			break;
 
-		else if (browserName.equalsIgnoreCase("edge")) {
+		case "edge":
 			System.setProperty(PropertyReader.getProperty("edgeKey"), PropertyReader.getProperty("edgeValue"));
 			driver.set(new EdgeDriver());
-		}
+			break;
 
-		else if (browserName.equalsIgnoreCase("firefox")) {
+		case "firefox":
 			System.setProperty(PropertyReader.getProperty("firefoxKey"), PropertyReader.getProperty("firefoxValue"));
 			FirefoxOptions options = new FirefoxOptions();
 			options.addArguments("--allow-system-access");
 			driver.set(new FirefoxDriver(options));
-		}
+			break;
 
-		else {
+		default:
 			String errorMessage = "❌ Undefined Browser Setup: '" + browserName
 					+ "'. Please check browser configuration...";
 			System.err.println(errorMessage);
